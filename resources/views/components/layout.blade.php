@@ -1108,7 +1108,7 @@
             <aside id="layout-menu" class="layout-menu menu-vertical menu" style="touch-action: none; user-select: none; -webkit-user-drag: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);">
 
                 <div class="app-brand demo">
-                    <a href="#" class="app-brand-link">
+                    <a href="{{ route('Inicio') }}" class="app-brand-link">
                         <span class="app-brand-logo demo">
                             <span class="text-primary">
                                 <svg xmlns="http://www.w3.org/2000/svg"

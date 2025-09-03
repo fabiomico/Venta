@@ -82,6 +82,9 @@ Route::get('/empresa/{id}/edit', [EmpresaController::class, 'edit'])->name('empr
 Route::get('/perfil', [PerfilController::class, 'index'])->name('Perfil');
 Route::patch('/profile/update', [PerfilController::class, 'update'])->name('profile.update');
 Route::patch('/profile/password', [PerfilController::class, 'updatePassword'])->name('profile.password');
+Route::delete('/user/avatar/reset', [PerfilController::class, 'resetAvatar'])
+    ->name('user.resetAvatar')
+    ->middleware('auth');
 
 
 require __DIR__ . '/auth.php';

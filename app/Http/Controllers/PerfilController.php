@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 
 class PerfilController extends Controller
 {
@@ -71,5 +73,24 @@ class PerfilController extends Controller
         $user->save();
 
         return back()->with('success', 'Contraseña actualizada correctamente.');
+    }
+    public function resetAvatar(Request $request)
+    {
+        $user = Auth::user();
+
+        // si el usuario tenía una foto guardada en storage/public/avatars
+        if ($user->foto && Storage::disk('public')->exists($user->foto)) {
+            Storage::disk('public')->delete($user->foto);
+        }
+
+        // eliminar referencia en la base de datos
+        $user->foto = null;
+        $user->save();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Foto de perfil eliminada correctamente',
+            'defaultAvatar' => asset('assets/img/avatars/cat4.gif'),
+        ]);
     }
 }

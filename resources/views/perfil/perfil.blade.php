@@ -199,9 +199,11 @@
                     </div>
                 </div>
             </div>
+            <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
             <script>
                 document.addEventListener('DOMContentLoaded', function() {
-                    // --- Toast
+                    // --- Toast Bootstrap ---
                     function showToast(message, type = 'primary') {
                         const toastEl = document.querySelector('.bs-toast');
                         toastEl.className = `bs-toast toast toast-placement-ex m-2 fade bg-${type} top-0 end-0 hide`;
@@ -209,6 +211,7 @@
                         const toast = new bootstrap.Toast(toastEl);
                         toast.show();
                     }
+
                     @if(session('success'))
                     showToast("{{ session('success') }}", 'success');
                     @endif
@@ -222,12 +225,14 @@
                     @endif
                 });
             </script>
+
             <script>
                 const uploadedAvatar = document.getElementById('uploadedAvatar');
                 const uploadInput = document.getElementById('upload');
                 const resetButton = document.getElementById('resetAvatar');
                 const defaultAvatar = "{{ asset('assets/img/avatars/cat4.gif') }}";
 
+                // Vista previa al subir
                 uploadInput.addEventListener('change', function() {
                     const file = this.files[0];
                     if (file) {
@@ -235,11 +240,51 @@
                     }
                 });
 
+                // Resetear avatar con confirmación
                 resetButton.addEventListener('click', function() {
-                    uploadInput.value = '';
-                    uploadedAvatar.src = defaultAvatar;
+                    Swal.fire({
+                        title: '¿Estás seguro?',
+                        text: "Se eliminará tu foto de perfil y se usará el avatar por defecto.",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonText: 'Sí, eliminar',
+                        cancelButtonText: 'Cancelar',
+                        customClass: {
+                            confirmButton: 'btn btn-danger me-2',
+                            cancelButton: 'btn btn-secondary'
+                        },
+                        buttonsStyling: false
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            fetch("{{ route('user.resetAvatar') }}", {
+                                    method: "DELETE",
+                                    headers: {
+                                        "X-CSRF-TOKEN": "{{ csrf_token() }}",
+                                        "Accept": "application/json",
+                                    }
+                                })
+                                .then(response => response.json())
+                                .then(data => {
+                                    if (data.success) {
+                                        uploadInput.value = '';
+                                        uploadedAvatar.src = data.defaultAvatar;
+
+                                        // Mostrar toast
+                                        const toastEl = document.querySelector('.bs-toast');
+                                        toastEl.querySelector('.toast-body').textContent = "Avatar eliminado correctamente";
+                                        toastEl.className = `bs-toast toast toast-placement-ex m-2 fade bg-success top-0 end-0 hide`;
+                                        const toast = new bootstrap.Toast(toastEl);
+                                        toast.show();
+                                    } else {
+                                        Swal.fire('Error', 'No se pudo eliminar el avatar.', 'error');
+                                    }
+                                })
+                                .catch(() => Swal.fire('Error', 'Error de conexión con el servidor.', 'error'));
+                        }
+                    });
                 });
             </script>
+
     </main>
 
     <!-- Template Customizer va fuera de main y slot -->
