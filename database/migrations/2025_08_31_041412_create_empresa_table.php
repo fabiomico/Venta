@@ -19,7 +19,6 @@ return new class extends Migration
             $table->string('correo')->nullable();
             $table->string('direccion')->nullable();
             $table->string('nit')->nullable();
-            $table->foreignId('id_user')->constrained('users')->onDelete('cascade');
             $table->timestamps();
         });
     }

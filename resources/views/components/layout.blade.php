@@ -1172,67 +1172,27 @@
                             <div data-i18n="Cliente">Cliente</div>
                         </a>
                     </li>
-
-                    <li class="menu-item">
-                        <a href="javascript:void(0);" class="menu-link menu-toggle">
+                    <li class="menu-item {{ Request::routeIs('Crear Usuario') ? 'active' : '' }}">
+                        <a href="{{ route('Crear Usuario') }}" class="menu-link">
                             <i class="menu-icon icon-base bx bx-user"></i>
-                            <div data-i18n="Users">Users</div>
+                            <div data-i18n="Crear Usuario">Crear Usuario</div>
                         </a>
-                        <ul class="menu-sub">
-                            <li class="menu-item">
-                                <a href="app-user-list.html" class="menu-link">
-                                    <div data-i18n="List">List</div>
-                                </a>
-                            </li>
-
-                            <li class="menu-item">
-                                <a href="javascript:void(0);" class="menu-link menu-toggle">
-                                    <div data-i18n="View">View</div>
-                                </a>
-                                <ul class="menu-sub">
-                                    <li class="menu-item">
-                                        <a href="app-user-view-account.html" class="menu-link">
-                                            <div data-i18n="Account">Account</div>
-                                        </a>
-                                    </li>
-                                    <li class="menu-item">
-                                        <a href="app-user-view-security.html" class="menu-link">
-                                            <div data-i18n="Security">Security</div>
-                                        </a>
-                                    </li>
-                                    <li class="menu-item">
-                                        <a href="app-user-view-billing.html" class="menu-link">
-                                            <div data-i18n="Billing &amp; Plans">Billing &amp; Plans</div>
-                                        </a>
-                                    </li>
-                                    <li class="menu-item">
-                                        <a href="app-user-view-notifications.html" class="menu-link">
-                                            <div data-i18n="Notifications">Notifications</div>
-                                        </a>
-                                    </li>
-                                    <li class="menu-item">
-                                        <a href="app-user-view-connections.html" class="menu-link">
-                                            <div data-i18n="Connections">Connections</div>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
-                        </ul>
                     </li>
-                    <li class="menu-item">
+
+                    <li class="menu-item {{ Request::routeIs('rol.*') ? 'active open' : '' }}">
                         <a href="javascript:void(0);" class="menu-link menu-toggle">
                             <i class="menu-icon icon-base bx bx-check-shield"></i>
                             <div data-i18n="Roles &amp; Permissions">Roles &amp; Permissions</div>
                         </a>
                         <ul class="menu-sub">
-                            <li class="menu-item">
-                                <a href="app-access-roles.html" class="menu-link">
+                            <li class="menu-item {{ Request::routeIs('rol.index') ? 'active' : '' }}">
+                                <a href="{{ route('rol.index') }}" class="menu-link">
                                     <div data-i18n="Roles">Roles</div>
                                 </a>
                             </li>
-                            <li class="menu-item">
-                                <a href="app-access-permission.html" class="menu-link">
-                                    <div data-i18n="Permission">Permission</div>
+                            <li class="menu-item {{ Request::routeIs('permiso.*') ? 'active' : '' }}">
+                                <a href="" class="menu-link">
+                                    <div data-i18n="Permisos">Permisos</div>
                                 </a>
                             </li>
                         </ul>
@@ -2838,7 +2798,7 @@
             </div>
         </div>
         <script src="{{asset('assets/js/ui-toasts.js')}}"></script>
-        <div class="bs-toast toast toast-placement-ex m-2 fade bg-primary top-0 end-0 hide" role="alert" aria-live="assertive" aria-atomic="true" data-delay="2000">
+        <div id="liveToast" class="bs-toast toast toast-placement-ex m-2 fade bg-primary top-0 end-0 hide" role="alert" aria-live="assertive" aria-atomic="true" data-delay="2000">
             <div class="toast-header">
                 <i class="bx bx-bell me-2"></i>
                 <div class="me-auto fw-semibold">TUXON</div>
@@ -3555,6 +3515,47 @@
             }
         </script>
 
+
+        <script>
+            document.addEventListener("DOMContentLoaded", () => {
+                @if(session('success') || session('error') || session('warning') || session('info'))
+                const toastEl = document.getElementById('liveToast');
+                const toastBody = toastEl.querySelector('.toast-body');
+
+                let type = "";
+                let message = "";
+
+                @if(session('success'))
+                type = "success";
+                message = "{{ session('success') }}";
+                @elseif(session('error'))
+                type = "error";
+                message = "{{ session('error') }}";
+                @elseif(session('warning'))
+                type = "warning";
+                message = "{{ session('warning') }}";
+                @elseif(session('info'))
+                type = "info";
+                message = "{{ session('info') }}";
+                @endif
+
+                // Limpiar clases anteriores
+                toastEl.classList.remove("toast-success", "toast-error", "toast-warning", "toast-info");
+
+                // Aplicar clase según tipo
+                toastEl.classList.add(`toast-${type}`);
+
+                // Colocar mensaje
+                toastBody.textContent = message;
+
+                // Mostrar toast
+                const toast = new bootstrap.Toast(toastEl, {
+                    delay: 4000
+                }); // 4s
+                toast.show();
+                @endif
+            });
+        </script>
 
         </script>
 

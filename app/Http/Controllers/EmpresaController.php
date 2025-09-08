@@ -77,8 +77,10 @@ class EmpresaController extends Controller
             'logo'     => $logoPath,
             'direccion' => $request->direccion,
             'nit'     => $request->nit,
-            'id_user'  => $user->id,
         ]);
+
+        $user->id_empresa = $empresa->id;
+        $user->save();
 
         return response()->json([
             'status'  => 'success',
