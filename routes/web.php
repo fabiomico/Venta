@@ -1,15 +1,5 @@
 <?php
 
-<<<<<<< HEAD
-=======
-use App\Http\Controllers\ClienteController;
-use App\Http\Controllers\DashboardControoler;
-use App\Http\Controllers\EmpresaController;
-use App\Http\Controllers\PerfilController;
-use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\RolController;
-use App\Http\Controllers\UsuarioController;
->>>>>>> 7c87a1ed22870e3111cdee707d67068228a7f5a1
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PerfilController;
 use App\Http\Controllers\ClienteController;
