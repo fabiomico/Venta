@@ -16,7 +16,11 @@ class Empresa extends Model
         'nit',
         'id_user'
     ];
-    public function user(){
-        return $this->belongsTo(User::class,'id_user');
+
+    public function sucursales()
+    {
+        return $this->hasMany(Sucursal::class);
     }
+
+    
 }

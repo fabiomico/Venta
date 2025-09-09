@@ -1,11 +1,12 @@
 <?php
 
-use App\Http\Controllers\ClienteController;
-use App\Http\Controllers\DashboardControoler;
-use App\Http\Controllers\EmpresaController;
-use App\Http\Controllers\PerfilController;
-use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PerfilController;
+use App\Http\Controllers\ClienteController;
+use App\Http\Controllers\EmpresaController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SucursalController;
+use App\Http\Controllers\DashboardControoler;
 
 Route::get('/', function () {
     return view('welcome');
@@ -77,6 +78,14 @@ Route::get('empresa/fetch', [EmpresaController::class, 'fetch'])->name('empresa.
 Route::post('/empresa/store', [EmpresaController::class, 'store'])->name('empresa.store');
 Route::put('empresa/{id}', [EmpresaController::class, 'update'])->name('empresa.update');
 Route::get('/empresa/{id}/edit', [EmpresaController::class, 'edit'])->name('empresa.edit');
+
+//sucursales
+Route::get('sucursales', [SucursalController::class, 'index'])->name('sucursales.index');
+Route::get('sucursales/fetch', [SucursalController::class, 'fetch'])->name('sucursales.fetch');
+
+Route::post('sucursales', [SucursalController::class, 'store'])->name('sucursales.store');
+Route::put('sucursales/{id}', [SucursalController::class, 'update'])->name('sucursales.update');
+Route::delete('sucursales/{id}', [SucursalController::class, 'destroy'])->name('sucursales.destroy');
 
 //perfil
 Route::get('/perfil', [PerfilController::class, 'index'])->name('Perfil');

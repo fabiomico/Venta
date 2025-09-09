@@ -1166,6 +1166,13 @@
                             <div data-i18n="Empresa">Empresa</div>
                         </a>
                     </li>
+                    <li class="menu-item {{ Request::routeIs('sucursales.*') ? 'active' : '' }}">
+                        <a href="{{ route('sucursales.index') }}" class="menu-link">
+                            <i class="menu-icon icon-base bx bx-building"></i>
+                            <div data-i18n="Sucursales">Sucursales</div>
+                        </a>
+                    </li>
+                    
                     <li class="menu-item {{ Request::routeIs('Cliente') ? 'active' : '' }}">
                         <a href="{{ route('Cliente') }}" class="menu-link">
                             <i class="menu-icon icon-base bx bx-user"></i>
@@ -1534,12 +1541,12 @@
                     <li class="menu-item">
                         <a href="javascript:void(0)" class="menu-link menu-toggle">
                             <i class="menu-icon icon-base bx bx-box"></i>
-                            <div data-i18n="User interface">User interface</div>
+                            <div data-i18n="Inventario">Inventario</div>
                         </a>
                         <ul class="menu-sub">
                             <li class="menu-item">
                                 <a href="ui-accordion.html" class="menu-link">
-                                    <div data-i18n="Accordion">Accordion</div>
+                                    <div data-i18n="Crear almacen">crear almacen</div>
                                 </a>
                             </li>
                             <li class="menu-item">
