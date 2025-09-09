@@ -1,5 +1,15 @@
 <?php
 
+<<<<<<< HEAD
+=======
+use App\Http\Controllers\ClienteController;
+use App\Http\Controllers\DashboardControoler;
+use App\Http\Controllers\EmpresaController;
+use App\Http\Controllers\PerfilController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\RolController;
+use App\Http\Controllers\UsuarioController;
+>>>>>>> 7c87a1ed22870e3111cdee707d67068228a7f5a1
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PerfilController;
 use App\Http\Controllers\ClienteController;
@@ -95,5 +105,16 @@ Route::delete('/user/avatar/reset', [PerfilController::class, 'resetAvatar'])
     ->name('user.resetAvatar')
     ->middleware('auth');
 
+
+
+//Crear Usuario
+Route::get('/user', [UsuarioController::class, 'index'])->name('Crear Usuario')->middleware(['auth', 'verified']);
+Route::get('/usuarios/lista', [UsuarioController::class, 'getUsers'])->name('usuarios.lista');
+
+//Crear Rol y Permisos
+Route::get('/rol', [RolController::class, 'index'])->name('rol.index');
+Route::post('/roles', [RolController::class, 'store'])->name('roles.store');
+Route::put('/roles/{role}', [RolController::class, 'update'])->name('roles.update');
+Route::delete('/roles/{role}', [RolController::class, 'destroy'])->name('roles.destroy');
 
 require __DIR__ . '/auth.php';

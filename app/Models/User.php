@@ -25,7 +25,8 @@ class User extends Authenticatable
         'password',
         'paterno',
         'materno',
-        'foto'
+        'foto',
+        'id_empresa'
     ];
 
     /**
@@ -54,5 +55,8 @@ class User extends Authenticatable
     {
         return "{$this->name} {$this->paterno} {$this->materno}";
     }
-    
+    public function empresa()
+    {
+        return $this->belongsTo(Empresa::class, 'id_empresa');
+    }
 }
