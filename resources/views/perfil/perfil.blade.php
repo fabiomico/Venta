@@ -20,7 +20,7 @@
                         </ul>
                         <div class="tab-content">
                             <div class="tab-pane fade show active" id="tab-cuenta">
-                                <h5 class="card-header">Perfil Detalles</h5>
+                                <h5 class="card-header">Perfil</h5>
                                 <!-- Account -->
                                 <div class="card-body">
                                     <div class="d-flex align-items-start align-items-sm-center gap-4">
